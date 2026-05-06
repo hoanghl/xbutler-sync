@@ -1,0 +1,89 @@
+openapi: 3.0.0
+info:
+  title: File Management API
+  version: 1.0.0
+
+# 1. Define the group here
+tags:
+  - name: File synchronization
+    description: Operations related to keeping local and remote files in sync.
+
+paths:
+  /sync:
+    get:
+      tags:
+        - File synchronization
+      summary: Get sync manifest
+      responses:
+        "200":
+          description: A sync manifest object
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SyncManifest"
+
+  /files/{filename}:
+    get:
+      tags:
+        - File synchronization
+      summary: Download a file
+      parameters:
+        - $ref: "#/components/parameters/FilenamePath"
+      responses:
+        "200":
+          description: The file content
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+
+  /files:
+    post:
+      tags:
+        - File synchronization
+      summary: Upload a file
+      parameters:
+        - $ref: "#/components/parameters/FilenameHeader"
+      requestBody:
+        required: true
+        content:
+          application/octet-stream:
+            schema:
+              type: string
+              format: binary
+      responses:
+        "201":
+          description: File uploaded successfully
+
+components:
+  schemas:
+    SyncManifest:
+      type: object
+      properties:
+        upload:
+          type: array
+          items:
+            type: string
+        download:
+          type: array
+          items:
+            type: string
+      required:
+        - upload
+        - download
+
+  parameters:
+    FilenamePath:
+      name: filename
+      in: path
+      required: true
+      schema:
+        type: string
+
+    FilenameHeader:
+      name: X-File-Name
+      in: header
+      required: true
+      schema:
+        type: string
