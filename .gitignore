@@ -6,3 +6,20 @@
 *.obj
 *.swp
 *.tmp
+
+
+# General macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Icon must end with two spaces
+Icon
+
+
+# Thumbnails
+._*
+
+# Files that might be created on a volume mounted over a network
+.Spotlight-V100
+.Trashes
