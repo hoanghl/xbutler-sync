@@ -41,7 +41,7 @@
 Apply set merging algorithm for
 
 1. Apply left exclude join for `A` with `B` -> result is converted to vector of string and is value of field `download`
-2. 1. Apply left exclude join for `B` with `A` -> result is converted to vector of string and is value of field `upload`
+2. Apply left exclude join for `B` with `A` -> result is converted to vector of string and is value of field `upload`
 
 # 5. Data Structure
 
