@@ -1,6 +1,17 @@
 #pragma once
 
+#include <string>
+
 namespace cli {
 
-void run(int argc, char *argv[]) {}
+enum class Role { Server, Client };
+
+struct Arguments {
+  Role role;
+  std::string directory;
+  std::string serverIp;
+  uint16_t port;
+};
+
+Arguments parseArgument();
 } // namespace cli

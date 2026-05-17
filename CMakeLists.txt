@@ -7,12 +7,23 @@ set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
+set(CMAKE_CXX_FLAGS_RELEASE "-O3")
+
 include(FetchContent)
+
 FetchContent_Declare(httplib
     GIT_REPOSITORY https://github.com/yhirose/cpp-httplib.git
     GIT_TAG v0.15.3
 )
-FetchContent_MakeAvailable(httplib)
+FetchContent_Declare(CLI
+    GIT_REPOSITORY https://github.com/CLIUtils/CLI11
+    GIT_TAG v2.6.2
+)
+FetchContent_Declare(spdlog
+    GIT_REPOSITORY https://github.com/gabime/spdlog
+    GIT_TAG v1.17.0
+)
+FetchContent_MakeAvailable(httplib CLI spdlog)
 
 add_executable(xbutler-sync
     src/main.cpp
@@ -24,15 +35,7 @@ target_include_directories(xbutler-sync PRIVATE
     ${PROJECT_SOURCE_DIR}/include
     ${PROJECT_SOURCE_DIR}/src
 )
-target_link_libraries(xbutler-sync httplib::httplib)
-
-
-include(FetchContent)
-FetchContent_Declare(CLI
-  GIT_REPOSITORY https://github.com/CLIUtils/CLI11
-  GIT_TAG v2.6.2
-)
-FetchContent_MakeAvailable(CLI)
+target_link_libraries(xbutler-sync httplib::httplib CLI11::CLI11 spdlog::spdlog)
 
 
 find_program(CLANG_FORMAT_BIN NAMES clang-format)
