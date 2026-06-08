@@ -23,7 +23,12 @@ FetchContent_Declare(spdlog
     GIT_REPOSITORY https://github.com/gabime/spdlog
     GIT_TAG v1.17.0
 )
-FetchContent_MakeAvailable(httplib CLI spdlog)
+FetchContent_Declare(
+  curl
+  GIT_REPOSITORY https://github.com/curl/curl.git
+  GIT_TAG curl-8_14_1
+)
+FetchContent_MakeAvailable(httplib CLI spdlog curl)
 
 add_executable(xbutler-sync
     src/main.cpp
@@ -35,7 +40,7 @@ target_include_directories(xbutler-sync PRIVATE
     ${PROJECT_SOURCE_DIR}/include
     ${PROJECT_SOURCE_DIR}/src
 )
-target_link_libraries(xbutler-sync httplib::httplib CLI11::CLI11 spdlog::spdlog)
+target_link_libraries(xbutler-sync httplib::httplib CLI11::CLI11 spdlog::spdlog CURL::libcurl)
 
 
 find_program(CLANG_FORMAT_BIN NAMES clang-format)
