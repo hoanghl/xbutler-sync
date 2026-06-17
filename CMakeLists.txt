@@ -28,7 +28,12 @@ FetchContent_Declare(
   GIT_REPOSITORY https://github.com/curl/curl.git
   GIT_TAG curl-8_14_1
 )
-FetchContent_MakeAvailable(httplib CLI spdlog curl)
+FetchContent_Declare(json
+    GIT_REPOSITORY https://github.com/nlohmann/json.git
+    GIT_TAG v3.12.0
+)
+FetchContent_MakeAvailable(httplib CLI spdlog curl json)
+
 
 add_executable(xbutler-sync
     src/main.cpp
@@ -40,7 +45,7 @@ target_include_directories(xbutler-sync PRIVATE
     ${PROJECT_SOURCE_DIR}/include
     ${PROJECT_SOURCE_DIR}/src
 )
-target_link_libraries(xbutler-sync httplib::httplib CLI11::CLI11 spdlog::spdlog CURL::libcurl)
+target_link_libraries(xbutler-sync httplib::httplib CLI11::CLI11 spdlog::spdlog CURL::libcurl nlohmann_json::nlohmann_json)
 
 
 find_program(CLANG_FORMAT_BIN NAMES clang-format)
