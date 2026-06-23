@@ -10,10 +10,16 @@ tags:
 
 paths:
   /sync:
-    get:
+    post:
       tags:
         - File synchronization
       summary: Get sync manifest
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SyncRequest"
       responses:
         "200":
           description: A sync manifest object
@@ -58,6 +64,16 @@ paths:
 
 components:
   schemas:
+    SyncRequest:
+      type: object
+      properties:
+        filename:
+          type: array
+          items:
+            type: string
+      required:
+        - filename
+
     SyncManifest:
       type: object
       properties:

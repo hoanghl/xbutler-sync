@@ -3,7 +3,7 @@
 #include <string>
 
 int main() {
-  const std::string command = "\"" APP_BINARY "\"";
+  const std::string command = "\"" APP_BINARY "\" --help";
   const int exit_code = std::system(command.c_str());
 
   if (exit_code != 0) {
