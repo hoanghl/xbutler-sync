@@ -1,7 +1,16 @@
 #pragma once
 
+#include <cstdint>
+#include <string>
+
 namespace server {
 
-void start(const char* host, int port);
+struct ServerConfig {
+  std::string host;
+  uint16_t port;
+  std::string directory;
+};
+
+void start(const ServerConfig& config);
 
 } // namespace server
